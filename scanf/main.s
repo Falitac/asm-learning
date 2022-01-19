@@ -1,5 +1,7 @@
 # @author Konrad Filek
 # Program wczytujący 2 liczby i wyświetlający je na ekran
+# Aby skompilować i uruchomić, należy w konsoli wpisać
+# polecenie make
 
 .globl main
 
@@ -16,6 +18,28 @@ output: .string "Suma %d\n"
 # Ściągawka, rejestry ABI i ich ułożenie w funkcjach C
 # int fun(arg1, arg2, arg3, arg4, arg5, arg6)
 # rax     rdi   rsi   rdx   rcx   r8    r9
+
+# Znaczenie '$':
+# Jeśli użyty przy stałych:
+# mov $3, %eax
+
+# to oznacza że chcemy przypisać wartość, jeśli go nie damy,
+# instrukcja próbuje pobrać do eax wartość z adresu 3:
+# mov 3, %eax
+
+# W pozostałych przypadkach oznacza pobranie adresu symbolu np.:
+# mov $input, %edi
+# pobierz adres do edi, a w drugim przypadku:
+# mov input, %edi
+# pobierz wartość do edi
+
+# Zapamiętać dla printf/scanf:
+
+# scanf(, &a);
+# mov $a, %esi
+
+# printf(, a);
+# mov a, %esi
 
 main:
 
@@ -44,6 +68,6 @@ main:
   add $8, %rsp
 
 # return 0
-  mov $0, %eax
+  xor %eax, %eax
   ret
 

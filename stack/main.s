@@ -9,22 +9,26 @@ out: .string "%d %d\n"
 .text
 
 main:
-# it does not work yet ^^
-  sub $0x8, %rsp
+	push %rbp
+	mov %rsp, %rbp
+  sub $0x10, %rsp
   
-  mov %rsp, %r12
+# edi ilość argumentów -> int    argc
+# rsi argumenty        -> char** argv[]
+
+  mov %rsi, %r12
 
   mov 8(%r12), %rdi
   call atoi
+	push %rax
 
-  mov $out, %edi
-  mov %rax, %rsi
-  xor %eax, %eax
-  call printf
+  mov 16(%r12), %rdi
+  call atoi
+	push %rax
 
   xor %edx, %edx
-  pop %rax
   pop %rbx
+  pop %rax
   idiv %ebx
 
   push %rdx
@@ -37,7 +41,8 @@ main:
   call printf
 
 
-  add $0x8, %rsp
+  #add $0x8, %rsp
+	leave
   xor %rax, %rax
   ret
 

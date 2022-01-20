@@ -28,7 +28,6 @@ output2: .string "Ilosc jedynek w liczbie: %d\n"
 # int fun(arg1, arg2, arg3, arg4, arg5, arg6)
 # rax     rdi   rsi   rdx   rcx   r8    r9
 
-
 main:
 
 # wyrównywanie ramki stosu do 8 bajtów, ważne by działał scanf

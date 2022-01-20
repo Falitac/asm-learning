@@ -8,6 +8,7 @@ out: .string "%d %d\n"
 
 .text
 
+
 main:
 	push %rbp
 	mov %rsp, %rbp

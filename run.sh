@@ -1,5 +1,5 @@
 #!/bin/bash
 
-gcc -c $1
+gcc $1
 ./a.out
 

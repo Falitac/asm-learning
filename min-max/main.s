@@ -23,12 +23,23 @@ min_max:
 	xor %ebx, %ebx
 min_max_loop:
 	mov	table(,%esi,4), %edx
+
+/*
+	if(tab[i] < min) {
+		min = tab[i];
+	}
+*/
 	cmp	%eax, %edx
+	cmovb	%edx, %eax # eax > edx
 
-	cmovb	%edx, %eax
-	cmp	%ebx, %edx
+/*
+	if(tab[i] > max) {
+		max = tab[i];
+	}
+*/
+	cmp	%ebx, %edx 
+	cmova %edx, %ebx # ebx < edx
 
-	cmova %edx, %ebx
 	dec %esi
 
 	jns	min_max_loop
@@ -38,8 +49,21 @@ min_max_loop:
 	mov %ebx, %edx
 	xor %eax, %eax
 	call printf
+	ret
 
 # 0 0 0 0 0 0 0 0  1
 # 7 6 5 4 3 2 1 0 -1
 
-	ret
+#		%esi
+#  7 0111
+#  6 0110
+#  5 0101
+#  4 0100
+#  3 0011
+#  2 0010
+#  1 0001
+#  0 0000
+# -1 1111
+
+# -8 + 4 + 2 + 1 = -1
+
